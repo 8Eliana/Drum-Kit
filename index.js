@@ -1,45 +1,28 @@
 let numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
-for (let i = 0; i < numberOfDrumButtons; i++) {
-    document.querySelectorAll("button")[i].addEventListener("click", handelClick);
+const audio = {
+    class : ["w","a","s","d","j","k","l"],
+    images : ["tom-1","tom-2","tom-3","tom-4","snare","crash","kick-bass"] 
 }
 
-// function handelClick() {
-//     let audio = new Audio('sounds/tom-1.mp3');
-//     audio.play();
-// }
+for (let i = 0; i < numberOfDrumButtons; i++) {
+    document.querySelectorAll("button")[i].addEventListener("click",function() {
+        let buttonInnerHtml = this.innerHTML;
+        switch (buttonInnerHtml) {
+            case audio.class[i] :
+                let audioFile = new Audio('sounds/'+audio.images[i]+'.mp3');
+                audioFile.play()
+                break;
+        }
+        buttonAnimation(buttonInnerHtml);
 
-function handelClick() {
-    let buttonInnerHtml = this.innerHTML
-    switch (buttonInnerHtml) {
-        case "w":
-            let audio1 = new Audio('sounds/tom-1.mp3');
-            audio1.play();
-        break;
-        case "a":
-            let audio2 = new Audio('sounds/tom-2.mp3');
-            audio2.play();
-        break;
-        case "s":
-            let audio3 = new Audio('sounds/tom-3.mp3');
-            audio3.play();
-        break;
-        case "d":
-            let audio4 = new Audio('sounds/tom-4.mp3');
-            audio4.play();
-        break;
-        case "j":
-            let audio5 = new Audio('sounds/snare.mp3');
-            audio5.play();
-        break;
-        case "k":
-            let audio6 = new Audio('sounds/crash.mp3');
-            audio6.play();
-        break;
-        case "l":
-            let audio7 = new Audio('sounds/kick-bass.mp3');
-            audio7.play();
-        break;
-        default:
-    }
+    });
+}
+
+function buttonAnimation(currentKey){
+    let activeButton = document.querySelector("." + currentKey); //let activeButton = document.querySelector("." + currentKey).classList.add('pressed'); daca lasam asa nu functiona
+    activeButton.classList.add("pressed");
+    setTimeout(function() {
+      activeButton.classList.remove("pressed");
+    }, 100);
 }
